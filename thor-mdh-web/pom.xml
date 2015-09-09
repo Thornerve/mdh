@@ -1,0 +1,347 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   
+   <parent>
+		<groupId>com.thor.mdh.parent</groupId>
+		<artifactId>thor-mdh-parent</artifactId>
+		<relativePath>../thor-mdh-parent/pom.xml</relativePath>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+   
+   <groupId>com.thor.mdh.web</groupId>
+   <artifactId>thor-mdh-web</artifactId>
+   <version>0.0.1</version>
+   <packaging>war</packaging>
+   
+   <properties>
+		<warName>thor-mdh-web</warName>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- 表示开发的时候引入，发布的时候不会加载此包 -->
+			<scope>test</scope>
+		</dependency>
+		<!-- spring核心包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		 <!--添加aspectjweaver包 -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+		<!-- mybatis核心包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<!-- mybatis/spring包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+		<!-- 导入java ee jar 包 -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+		<!-- 导入Mysql数据库链接jar包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+		<!-- JSTL标签类 -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<!-- 日志文件管理包 -->
+		<!-- log start -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		
+		<!-- 格式化对象，方便输出日志 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<!-- log end -->
+		<!-- 映入JSON 2.x -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<!-- 上传组件包 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<!-- freeamrker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+		
+		<!-- mdh-api -->
+		<dependency>
+		   <groupId>com.thor.mdh.api</groupId>
+		   <artifactId>thor-mdh-api</artifactId>
+		   <version>0.0.1</version>
+		</dependency>
+		
+		<!-- mdh-dao -->
+		<dependency>
+		   <groupId>com.thor.mdh.dao</groupId>
+		   <artifactId>thor-mdh-dao</artifactId>
+		   <version>0.0.1</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>${warName}</warName>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+					<!-- <packagingExcludes>resources/**</packagingExcludes> -->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<finalName>${warName}-${project.version}</finalName>
+					<descriptors><!--描述文件路径-->
+						<!-- 生产环境打包 -->
+						<descriptor>src/assembly/web-distribution.xml</descriptor>
+						<descriptor>src/assembly/web-resources-distribution.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase><!-- 绑定到package生命周期阶段上 -->
+						<goals>
+							<goal>single</goal><!-- 只运行一次 -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- YUI Compressor Maven压缩插件, mvn yuicompressor:compress -->
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compress</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- 读取js,css文件采用UTF-8编码 -->
+					<encoding>UTF-8</encoding>
+					<!-- 不显示js可能的错 -->
+					<jswarn>false</jswarn>
+					<!-- 若存在已压缩的文件，会先对比源文件是否有改动 有改动便压缩，无改动就不压缩 -->
+					<force>false</force>
+					<!-- 在指定的列号后插入新错误 -->
+					<linebreakpos>-1</linebreakpos>
+					<!-- 压缩之前先执行聚合文件操 -->
+					<preProcessAggregates>true</preProcessAggregates>
+					<!-- 压缩后保存文件后缀 -->
+					<suffix>.min</suffix>
+					<!-- 源目录，即需压缩的根目录 -->
+					<sourceDirectory>${basedir}/src/main/webapp/resource</sourceDirectory>
+					<!-- 压缩js和css文件 -->
+					<includes>
+						<include>**/js/**/*.js</include>
+						<include>**/css/**/*.css</include>
+						<include>**/jslib/**/*.js</include>
+						<include>**/jslib/**/*.css</include>
+					</includes>
+					<!-- 以下目录和文件不会被压缩 -->
+					<excludes>
+						<exclude>**/*min.js</exclude>
+						<exclude>**/*min.css</exclude>
+					</excludes>
+					<!-- 测试编码格式 -->
+					<!-- 压缩后输出文件目 -->
+					<outputDirectory>${basedir}/src/main/webapp/resource</outputDirectory>
+					<!-- 聚合文件 -->
+					<aggregations>
+						<aggregation>
+							<!-- 合并每一个文件后插入一新行 -->
+							<insertNewLine>true</insertNewLine>
+							<!-- 需合并文件的根文件路径 -->
+							<inputDir>${basedir}/src/main/webapp/resource/js</inputDir>
+							<!-- 最终合并的输出文件 -->
+							<output>${basedir}/src/main/webapp/resource/js/h.js</output>
+							<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
+							<includes>
+								<!-- <include>**/*.js</include> -->
+							</includes>
+						</aggregation>
+					</aggregations>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF8</encoding>
+					<compilerArguments>
+						<verbose />
+						<!-- <bootclasspath>${java.home}\lib\rt.jar;${java.home}\lib\jce.jar</bootclasspath> -->
+					</compilerArguments>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.groovy.maven
+										</groupId>
+										<artifactId>
+											gmaven-plugin
+										</artifactId>
+										<versionRange>
+											[1.0,)
+										</versionRange>
+										<goals>
+											<goal>execute</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<profiles>
+		<!-- The m2e profile is activated only when running within m2e. That way, 
+			a fake maven.build.timestamp property will always be available for your *eclipse* 
+			builds, won't interfere with your command line builds. If you do Run As > 
+			Maven xxxx, as Igor mentioned, the real maven.build.timestamp property (same 
+			as CLI builds) will be used. -->
+		<profile>
+			<id>m2e</id>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<properties>
+				<maven.build.timestamp>2015-07-01</maven.build.timestamp>
+			</properties>
+		</profile>
+	</profiles>
+</project>
