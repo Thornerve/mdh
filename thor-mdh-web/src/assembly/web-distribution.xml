@@ -17,7 +17,7 @@
 			<outputDirectory>WEB-INF/</outputDirectory>
 		</fileSet>
         <fileSet>
-			<directory>${basedir}/src/main/webapp/resource</directory>
+			<directory>${basedir}/src/main/webapp/resources</directory>
 			<includes>
 				<include>**/**/*.js</include>
 				<include>**/**/*.css</include>

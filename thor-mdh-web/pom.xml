@@ -241,7 +241,7 @@
 					<!-- 压缩后保存文件后缀 -->
 					<suffix>.min</suffix>
 					<!-- 源目录，即需压缩的根目录 -->
-					<sourceDirectory>${basedir}/src/main/webapp/resource</sourceDirectory>
+					<sourceDirectory>${basedir}/src/main/webapp/resources</sourceDirectory>
 					<!-- 压缩js和css文件 -->
 					<includes>
 						<include>**/js/**/*.js</include>
@@ -256,16 +256,16 @@
 					</excludes>
 					<!-- 测试编码格式 -->
 					<!-- 压缩后输出文件目 -->
-					<outputDirectory>${basedir}/src/main/webapp/resource</outputDirectory>
+					<outputDirectory>${basedir}/src/main/webapp/resources</outputDirectory>
 					<!-- 聚合文件 -->
 					<aggregations>
 						<aggregation>
 							<!-- 合并每一个文件后插入一新行 -->
 							<insertNewLine>true</insertNewLine>
 							<!-- 需合并文件的根文件路径 -->
-							<inputDir>${basedir}/src/main/webapp/resource/js</inputDir>
+							<inputDir>${basedir}/src/main/webapp/resources/js</inputDir>
 							<!-- 最终合并的输出文件 -->
-							<output>${basedir}/src/main/webapp/resource/js/h.js</output>
+							<output>${basedir}/src/main/webapp/resources/js/h.js</output>
 							<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
 							<includes>
 								<!-- <include>**/*.js</include> -->

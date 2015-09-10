@@ -2,7 +2,7 @@
 	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-	<id>resource-${timestamp}</id>
+	<id>resources-${timestamp}</id>
 	
 	<baseDirectory>${sysname}</baseDirectory>
 	
@@ -11,7 +11,7 @@
 	</formats>
 	<fileSets>
 		<fileSet>
-			<directory>${basedir}/src/main/webapp/resource</directory>
+			<directory>${basedir}/src/main/webapp/resources</directory>
 			<includes>
 				<include>**/**/*.js</include>
 				<include>**/**/*.css</include>
