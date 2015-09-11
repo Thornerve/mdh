@@ -1,0 +1,29 @@
+input[type=text] {
+	width: 80%;
+	height: 25px;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-left: 45px;
+	padding: 3px;
+	border-width: 0;
+}
+
+input[type=password] {
+	width: 80%;
+	height: 25px;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-left: 45px;
+	padding: 3px;
+	border-width: 0;
+}
+
+#loginform\:codeInput {
+	margin-left: 1px;
+	margin-top: 1px;
+}
+
+#loginform\:vCode {
+	margin: 0px 0 0 60px;
+	height: 34px;
+}

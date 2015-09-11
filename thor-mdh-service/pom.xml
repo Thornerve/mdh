@@ -137,5 +137,12 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
+		
+		<!-- mdh-api -->
+		<dependency>
+		   <groupId>com.thor.mdh.api</groupId>
+		   <artifactId>thor-mdh-api</artifactId>
+		   <version>0.0.1</version>
+		</dependency>
     </dependencies>
 </project>
