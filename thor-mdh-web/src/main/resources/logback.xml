@@ -92,12 +92,6 @@
         </encoder>
     </appender>
     
-    <!--============================= 按照每天生成日志文件：业务定制日志：统一配置业务日志========================-->   
-    <logger name="com.gagu.ucm.core.utils.ConfigUtils" additivity="false">
-        <level value="debug"/>
-        <appender-ref ref="MDH" />
-    </logger>
-    
     <!--===============================  日志输出: 默认主业务日志 ======================================-->
     <root level="debug">
         <appender-ref ref="STDOUT" />
@@ -110,15 +104,6 @@
         <appender-ref ref="FRAME" />
     </logger>
     
-    <!-- framework logger，使用 FRAME -->   
-    <logger name="com.ibm.framework" level="info" additivity="false"> 
-        <appender-ref ref="FRAME" />
-    </logger>
-
-    <logger name="com.saic.sso.client" level="debug" additivity="false">
-		<appender-ref ref="SAIC-SSO" />
-    </logger>
-    
     <logger name="USER-TRACER" additivity="true">
 		<level value="debug" />
 		<appender-ref ref="USER-TRACER" />
@@ -128,13 +113,5 @@
 		<level value="error" />
 		<appender-ref ref="EXCEPTION-LOG" />
     </logger>
-    
-    <logger name="com.saic.sso.client.SSOClient" level="info" additivity="false">
-		<appender-ref ref="SAIC-SSO-TRACE" />
-	</logger>
-	
-	<logger name="com.saic.sso.client.filter.UserTraceFilter" level="info" additivity="false">
-		<appender-ref ref="SAIC-SSO-TRACE" />
-	</logger>
     
 </configuration>

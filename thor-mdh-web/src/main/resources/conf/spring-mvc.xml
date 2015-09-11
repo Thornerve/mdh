@@ -144,6 +144,7 @@
 		<!--全局变量部分 -->
 		<property name="freemarkerVariables">
 			<map>
+				<entry key="hostUrl" value="${ebiz.mall.web.jscssHost}" />
 			</map>
 		</property>
 		<property name="defaultEncoding" value="utf-8" />
@@ -202,5 +203,5 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />  
     </bean> 
-
+    
 </beans>

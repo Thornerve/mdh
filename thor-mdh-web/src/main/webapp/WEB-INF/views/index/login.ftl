@@ -7,7 +7,8 @@
 <title>卖的欢管理系统</title>
 <#include "/common/common_meta.ftl" />
 
-<!-- 导入jquery核心类库<@jc.jsurl url = ["js/common/jquery-1.11.3","locale/easyui-lang-zh_CN"]/> -->
+<!-- 导入jquery核心类库 -->
+<@jc.jsurl url = ["js/common/jquery-1.11.3","locale/easyui-lang-zh_CN"]/>
 <script type="text/javascript" src="js/common/jquery-1.11.3.js"></script>
 <!-- 导入easyui类库 -->
 <link id="easyuiTheme" rel="stylesheet" type="text/css"
