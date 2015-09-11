@@ -148,6 +148,14 @@
 				<version>1.1.0.Final</version>
 			</dependency>
 			
+			<!-- gson -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<optional>true</optional>
+				<version>2.2.4</version>
+			</dependency>
+			
 			<!-- 格式化对象，方便输出日志 -->
 			<dependency>
 				<groupId>com.alibaba</groupId>

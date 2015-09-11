@@ -169,12 +169,9 @@
 			<artifactId>freemarker</artifactId>
 		</dependency>
 		
-		<!-- gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<optional>true</optional>
-			<version>2.2.4</version>
 		</dependency>
 		
 		<!-- mdh-api -->
