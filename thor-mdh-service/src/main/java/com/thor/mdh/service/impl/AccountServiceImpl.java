@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,24 @@ public class AccountServiceImpl implements IAccountService{
 			return -1l;
 		}else{
 			return accountDao.userRegister(userBean);
+		}
+	}
+
+	@Override
+	public Boolean checkMobile(Integer mobile) {
+		if(null == mobile){
+			return false;
+		}else{
+			return accountDao.checkMobile(mobile);
+		}
+	}
+
+	@Override
+	public Boolean checkEmail(String email) {
+		if(StringUtils.isBlank(email)){
+			return false;
+		}else{
+			return accountDao.checkEmail(email);
 		}
 	}
 	

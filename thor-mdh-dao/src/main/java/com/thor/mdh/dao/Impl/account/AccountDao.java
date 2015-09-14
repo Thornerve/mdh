@@ -36,5 +36,17 @@ public class AccountDao implements IAccountDao{
 		/** 插入数据 */
 		return null;
 	}
+
+	@Override
+	public Boolean checkMobile(Integer mobile) {
+		
+		return null;
+	}
+
+	@Override
+	public Boolean checkEmail(String email) {
+		
+		return null;
+	}
 	
 }

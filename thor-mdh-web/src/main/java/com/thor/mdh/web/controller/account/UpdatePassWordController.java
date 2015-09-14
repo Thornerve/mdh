@@ -13,8 +13,6 @@ package com.thor.mdh.web.controller.account;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.saic.ebiz.iam.service.entity.ResponseVO;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,36 +30,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.saic.ebiz.service.acount.intf.ValidateService;
-import com.saic.ebiz.service.member.bean.BasicPersonalInfoBean;
-import com.saic.ebiz.service.member.bean.UserBean;
-import com.saic.ebiz.service.member.bean.UserBeanValidator;
-import com.saic.ebiz.service.member.intf.FindPassWordService;
-import com.saic.ebiz.service.member.intf.UpdatePassWordService;
 import com.thor.mdh.api.bean.UserBean;
-import com.thor.mdh.api.service.IFindPassWordService;
+import com.thor.mdh.api.service.account.IFindPassWordService;
 import com.thor.mdh.api.service.account.IUpdatePassWordService;
 
 /**
- * 修改密码控制器<br>
- * 〈功能详细描述〉.
- * 
- * @author v_xieyuwen
- * @see [相关类/方法]（可选）
- * @since [产品/模块版本] （可选）
+ * 修改密码
+ * @author morlin
+ *
  */
 @Controller
 @RequestMapping("/account")
 public class UpdatePassWordController {
 
-    /** updatePassWordService. */
+    /** 修改密码服务 */
     @Autowired
     IUpdatePassWordService updatePassWordService;
 
-    /** 找回密码. */
+    /** 找回密码服务 */
     @Autowired
     IFindPassWordService findPassWordService;
 
+    /** view */
+    private static final String UPDATE_PASSWORD_VIEW = "/account/updatePassWord.ftl";
+    private static final String UPDATE_MODIFYPHONE_VIEW = "/account/updateModifyPhone.ftl";
+    private static final String UPDATE_MODIFYEMAIL_VIEW = "/account/updateModifyEmail.ftl";
+    
    /**
     * 进入密码验证页
     * @param user
@@ -69,54 +63,32 @@ public class UpdatePassWordController {
     */
     @RequestMapping("/passWordLogin")
     public ModelAndView passWordLogin(@ModelAttribute("userBean") UserBean user) {
+    	ModelAndView mv = new ModelAndView(UPDATE_PASSWORD_VIEW);
     	
-    	
-        return new ModelAndView("/member/updatePassWordUp.ftl");
+        return mv;
     }
 
     /**
-     * 功能描述: 进入手机验证页<br>
-     * .
-     * 
-     * @param userBean the user bean
-     * @param result the result
-     * @return the model and view
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
+     * 进入手机验证页
+     * @param userBean
+     * @return
      */
     @RequestMapping("/passWordMobile")
-    public ModelAndView passWordMobile(@ModelAttribute("userBean") UserBean userBean, BindingResult result) {
-        return new ModelAndView("/member/updateModifyPhone.ftl");
+    public ModelAndView passWordMobile(@ModelAttribute("userBean") UserBean userBean) {
+    	ModelAndView mv = new ModelAndView(UPDATE_MODIFYPHONE_VIEW);
+    	
+        return mv;
     }
 
-    /**
-     * 功能描述: 进入手机验证页<br>
-     * .
-     * 
-     * @param userBean the user bean
-     * @param result the result
-     * @return the model and view
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-    @RequestMapping("/accountSecurityMobile")
-    public ModelAndView accountSecurityMobile(@ModelAttribute("userBean") UserBean userBean, BindingResult result) {
-        return new ModelAndView("/member/accountSecurityPhone.ftl");
-    }
-
-    /**
-     * 功能描述: 进入邮箱验证页<br>
-     * .
-     * 
-     * @param userBean the user bean
-     * @param result the result
-     * @return the model and view
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
+   /**
+    * 进入邮箱验证页
+    * @param userBean
+    * @return
+    */
     @RequestMapping("/passWordEmail")
-    public ModelAndView passWordEmail(@ModelAttribute("userBean") UserBean userBean, BindingResult result) {
-        return new ModelAndView("/member/updateModifyEmail.ftl");
+    public ModelAndView passWordEmail(@ModelAttribute("userBean") UserBean userBean) {
+    	ModelAndView mv = new ModelAndView(UPDATE_MODIFYEMAIL_VIEW);
+        return mv;
     }
 
     /**
@@ -324,47 +296,5 @@ public class UpdatePassWordController {
         return new ModelAndView("/member/updatePassWordSuc.ftl").addObject("basicInfo", basicInfo);
     }
 
-    /**
-     * 功能描述: 前端验证手机号码、邮箱是否存在 <br>
-     * 返回页面 0:可用 1：不可用.
-     * 
-     * @param request the request
-     * @param response the response
-     * @param model the model
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-    @RequestMapping("/frontCheckPhone")
-    public void frontCheckPhone(HttpServletRequest request, HttpServletResponse response, Model model)
-            throws IOException {
-
-        int k = 0;
-        String arrStr;
-        String str = "@";
-        String resultNum = request.getParameter("parm");
-        int N = resultNum.indexOf(str);
-        PrintWriter outPrintWriter = response.getWriter();
-        // N为-1表示手机号码
-        if (N == -1) {
-            // 调用接口方法判断当前输入的手机是否存在 0:可用 1:不可用
-            k = validateService.toFrontCheckPhoneOrEma(request.getParameter("parm"), 1, 0);
-            if (k == 0) {
-                arrStr = "0";
-            } else {
-                arrStr = "1";
-            }
-        } else {
-            // 调用接口方法判断当前输入的邮箱是否存在 0:可用 1:不可用
-            k = validateService.toFrontCheckPhoneOrEma(request.getParameter("parm"), 2, 0);
-            if (k == 0) {
-                arrStr = "0";
-            } else {
-                arrStr = "1";
-            }
-        }
-
-        outPrintWriter.write(arrStr);
-    }
 
 }

@@ -164,8 +164,27 @@ public class AccountController {
             ImageIO.write(image, "JPEG", response.getOutputStream());
             System.setProperty("java.awt.headless", "true");
         } catch (IOException e) {
-            logger.error("validateCode image transmission was error !", e.getMessage());
+            logger.error("验证码图片出错：{}", e.getMessage());
         }
     }
     
+    /**
+     * 前端验证手机号码是否存在
+     * @param request
+     * @return
+     */
+    @RequestMapping("/checkMobile")
+    public Boolean checkMobile(@RequestParam(value = "mobile" , required = true)Integer mobile) {
+    	return accountService.checkMobile(mobile);
+    }
+    
+    /**
+     * 前端验证邮箱是否存在
+     * @param request
+     * @return
+     */
+    @RequestMapping("/checkEmail")
+    public Boolean checkEmail(@RequestParam(value = "email" , required = true) String email) {
+    	return accountService.checkEmail(email);
+    }
 }

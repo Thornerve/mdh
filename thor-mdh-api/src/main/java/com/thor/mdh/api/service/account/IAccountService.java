@@ -33,4 +33,18 @@ public interface IAccountService {
      * @return userid
      */
     public Long userRegister(UserBean userBean);
+
+    /**
+     * 校验手机号是否存在
+     * @param mobile
+     * @return
+     */
+	public Boolean checkMobile(Integer mobile);
+
+	/**
+	 * 校验邮箱是否存在
+	 * @param email
+	 * @return
+	 */
+	public Boolean checkEmail(String email);
 }

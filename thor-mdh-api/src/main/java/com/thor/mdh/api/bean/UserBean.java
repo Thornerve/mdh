@@ -10,6 +10,8 @@ public class UserBean implements Serializable{
 	private String userName;
 	/** 用户密码 */
 	private String password;
+	/** 旧密码 */
+	private String oldPassword;
 	/** 用户手机 */
 	private Integer mobile;
 	/** 验证码 */
@@ -84,6 +86,14 @@ public class UserBean implements Serializable{
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 
 }
