@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thor.mdh.api.bean.LoginInfo;
+import com.thor.mdh.api.bean.ResultVO;
 import com.thor.mdh.api.bean.User;
 import com.thor.mdh.api.service.IUserService;
 import com.thor.mdh.api.service.account.IAccountService;
@@ -107,6 +108,27 @@ public class AccountController {
 		return mv;
 	}
 
+	/**
+	 * 跳转到注册页面
+	 * @return
+	 */
+	@RequestMapping("/register")
+	public ModelAndView toRegisterView(){
+		ModelAndView mv = new ModelAndView("");
+		
+		return mv;
+	}
+	
+	/**
+	 * 注册
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("toregister")
+	public ResultVO toRegister(@RequestParam User user){
+		return new ResultVO();
+	}
+	
 	/**
 	 * 获取验证码
 	 * @param request
