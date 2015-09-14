@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.SessionUser;
+import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.dao.IAccountDao;
 import com.thor.mdh.api.exception.TryNumLimitedException;
 import com.thor.mdh.api.exception.UserNotFoundException;
+import com.thor.mdh.api.service.account.IAccountService;
 
 /**
  * 账户服务
@@ -22,7 +24,7 @@ import com.thor.mdh.api.exception.UserNotFoundException;
  *
  */
 @Service
-public class AccountServiceImpl {
+public class AccountServiceImpl implements IAccountService{
 	
 	@Autowired
 	private IAccountDao accountDao;
@@ -35,7 +37,6 @@ public class AccountServiceImpl {
 	
 	/**
 	 * 登陆
-	 * @param appCode 渠道（1：后台，2：用户）
 	 * @param aliasName
 	 * @param password
 	 * @param autoLogin
@@ -43,14 +44,14 @@ public class AccountServiceImpl {
 	 * @param response
 	 * @return
 	 */
-	public LoginInfo login(int appCode, String aliasName, String password, boolean autoLogin,
-	            HttpServletRequest request, HttpServletResponse response) {
+	@Override
+	public LoginInfo userLogin(String aliasName, String password, boolean autoLogin, HttpServletRequest request, HttpServletResponse response) {
 		LoginInfo loginInfo = new LoginInfo();
 		
         long userId = 0L;
         LoginInfo login = null;
         try {
-        	login = accountDao.login(appCode, aliasName, password);
+        	login = accountDao.userLogin(aliasName, password);
         } catch (UserNotFoundException e) {
             loginInfo.setErrMsg(USER_NOTFOUND_ERROR);
             loginInfo.setUserId(userId);
@@ -86,10 +87,26 @@ public class AccountServiceImpl {
             response.addCookie(cookie);
             HttpSession session = request.getSession();
             session.setAttribute(SessionUser.SESSION_USERID, String.valueOf(userId));
-            
         }
-        
         return loginInfo;
     }
+
+	@Override
+	public boolean userInvalidate(Long userId) {
+		if(null == userId){
+			return false;
+		}else{
+			return accountDao.userInvalidate(userId);
+		}
+	}
+
+	@Override
+	public Long userRegister(UserBean userBean) {
+		if(null == userBean){
+			return -1l;
+		}else{
+			return accountDao.userRegister(userBean);
+		}
+	}
 	
 }

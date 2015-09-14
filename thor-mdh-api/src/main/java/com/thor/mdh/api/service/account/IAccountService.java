@@ -4,36 +4,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.thor.mdh.api.bean.LoginInfo;
+import com.thor.mdh.api.bean.UserBean;
 
 public interface IAccountService {
 
 	/**
-     * 功能描述: 用户登录<br>
-     * 〈功能详细描述〉.
-     * 
-     * @param appCode appId 主站的为1
+     * 用户登录
      * @param aliasName 用户名
-     * @param password the password
+     * @param password 密码
      * @param autoLogin 是否保存密码
      * @param request the request
      * @param response the response
-     * @return request response
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
+     * @return 登录信息
      */
-    LoginInfo userLogin(int appCode, String aliasName, String password, boolean autoLogin, HttpServletRequest request,
+    public LoginInfo userLogin(String aliasName, String password, boolean autoLogin, HttpServletRequest request,
             HttpServletResponse response);
 
     /**
-     * 功能描述: 用户注销<br>
-     * .
-     * 
-     * @param userId the user id
-     * @param request the request
-     * @param response the response
+     * 删除用户
+     * @param userId 用户id
      * @return true, if successful
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
      */
-    boolean userLogout(long userId, HttpServletRequest request, HttpServletResponse response);
+    public boolean userInvalidate(Long userId);
+    
+    /**
+     * 用户注册
+     * @param userBean
+     * @return userid
+     */
+    public Long userRegister(UserBean userBean);
 }

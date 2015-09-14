@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thor.mdh.api.bean.LoginInfo;
-import com.thor.mdh.api.bean.ResultVO;
 import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.service.IUserService;
 import com.thor.mdh.api.service.account.IAccountService;
-import com.thor.mdh.web.controller.vo.UserVO;
 import com.thor.mdh.web.util.RandomValidateCode;
 
 /**
@@ -46,6 +45,7 @@ public class AccountController {
 	
 	/** view */
 	private static final String LOGIN_VIEW = "/index/login.ftl";
+	private static final String REGISTER_VIEW = "/index/register.ftl";
 	
     /** 密码次数超过限制 返回代码 */
     private final static int loginRtnCodeError = 101;
@@ -74,7 +74,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/tologin")
-	public ModelAndView toLogin(HttpServletRequest request, @RequestParam UserVO user, HttpServletResponse response) {
+	public ModelAndView toLogin(HttpServletRequest request, @RequestParam UserBean user, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView(LOGIN_VIEW);
 		/** 判断验证码是否正确 */
         String validCode = (String) request.getSession().getAttribute(RandomValidateCode.RANDOMCODEKEY);
@@ -85,7 +85,7 @@ public class AccountController {
         }
         
         /** 调用接口 验证用户登陆 */
-        LoginInfo loginInfo = accountService.userLogin(1, user.getUserName(), user.getPassword(), false, request, response);
+        LoginInfo loginInfo = accountService.userLogin(user.getUserName(), user.getPassword(), true, request, response);
 
         if (loginInfo.getRtnCode() == loginRtnCodeError) {
             return new ModelAndView(LOGIN_VIEW).addObject("message", "您输入的用户名或密码不正确！");
@@ -127,7 +127,7 @@ public class AccountController {
 	 */
 	@RequestMapping("/register")
 	public ModelAndView toRegisterView(){
-		ModelAndView mv = new ModelAndView("");
+		ModelAndView mv = new ModelAndView(REGISTER_VIEW);
 		
 		return mv;
 	}
@@ -138,8 +138,10 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("toregister")
-	public ResultVO toRegister(@RequestParam UserBean user){
-		return new ResultVO();
+	public Boolean toRegister(@RequestParam UserBean userBean){
+		userBean.setCreateTime(new Date());
+		Long userId = accountService.userRegister(userBean);
+		return userId > 0;
 	}
 	
 	/**
