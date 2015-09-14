@@ -1,4 +1,4 @@
-package com.thor.mdh.web.controller;
+package com.thor.mdh.web.controller.account;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

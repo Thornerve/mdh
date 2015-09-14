@@ -1,4 +1,4 @@
-package com.thor.mdh.web.controller.account;
+package com.thor.mdh.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
