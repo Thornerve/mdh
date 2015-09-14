@@ -34,12 +34,9 @@ import com.thor.mdh.web.controller.vo.UserVO;
 import com.thor.mdh.web.util.RandomValidateCode;
 
 /**
- * 找回密码<br>
- * .
- * 
- * @author v_xieyuwen
- * @see [相关类/方法]（可选）
- * @since [产品/模块版本] （可选）
+ * 找回密码
+ * @author morlin
+ *
  */
 @Controller
 @RequestMapping("/account/findPassWord")
@@ -339,8 +336,8 @@ public class FindPassWordController {
      */
     @RequestMapping("/findPassWordSecretSecurity")
     public @ResponseBody
-    ModelAndView findPassWordSecretSecurity(@ModelAttribute("userVO") @Valid UserBean userBean, @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity,
-            BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
+    ModelAndView findPassWordSecretSecurity(@ModelAttribute("userBean") UserBean userBean, @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity,
+            BindingResult result, Model model, HttpServletRequest request) {
         SecretSecurityBean ssb = new SecretSecurityBean();
         // 验证是否是通过第二步进入
         HttpSession session = request.getSession();
@@ -368,7 +365,6 @@ public class FindPassWordController {
 
     /**
      * 清空找回密码流程的临时session.
-     * 
      * @param request reques
      */
     private void removeFindPasswordSession(HttpServletRequest request) {
