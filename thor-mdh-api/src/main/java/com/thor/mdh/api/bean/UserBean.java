@@ -2,7 +2,7 @@ package com.thor.mdh.api.bean;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class UserBean implements Serializable{
 
 	private static final long serialVersionUID = -293714187271317286L;
 	

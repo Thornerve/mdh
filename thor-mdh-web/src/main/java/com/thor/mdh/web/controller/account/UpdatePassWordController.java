@@ -38,7 +38,7 @@ import com.saic.ebiz.service.member.bean.UserBean;
 import com.saic.ebiz.service.member.bean.UserBeanValidator;
 import com.saic.ebiz.service.member.intf.FindPassWordService;
 import com.saic.ebiz.service.member.intf.UpdatePassWordService;
-import com.thor.mdh.api.bean.User;
+import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.service.IFindPassWordService;
 import com.thor.mdh.api.service.account.IUpdatePassWordService;
 
@@ -68,7 +68,7 @@ public class UpdatePassWordController {
     * @return
     */
     @RequestMapping("/passWordLogin")
-    public ModelAndView passWordLogin(@ModelAttribute("userBean") User user) {
+    public ModelAndView passWordLogin(@ModelAttribute("userBean") UserBean user) {
     	
     	
         return new ModelAndView("/member/updatePassWordUp.ftl");

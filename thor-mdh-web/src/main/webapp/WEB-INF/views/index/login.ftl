@@ -71,5 +71,32 @@
 			href="http://download.firefox.com.cn/releases/full/23.0/zh-CN/Firefox-full-latest.exe">Firefox</a>
 		</span><span style="float: right; color: #488ED5;">卖的欢系统</span>
 	</div>
+	
+	<script type="text/javascript"> 
+		$(function(){  //生成验证码         
+		    $('#kaptchaImage').click(function () {  
+		    $(this).hide().attr('src', '/code/captcha-image?' + Math.floor(Math.random()*100) ).fadeIn(); });      
+		});   
+		 
+		window.onbeforeunload = function(){  
+		    //关闭窗口时自动退出  
+		    if(event.clientX>360&&event.clientY<0||event.altKey){     
+		        alert(parent.document.location);  
+		    }  
+		};  
+		             
+		function changeCode() {  //刷新
+		    $('#kaptchaImage').hide().attr('src', '/code/captcha-image?' + Math.floor(Math.random()*100) ).fadeIn();  
+		    event.cancelBubble=true;  
+		}  
+	</script> 
+		 
+	<div class="form-group">  
+	   <label>验证码 </label> 
+	   <input name="j_code" type="text" id="kaptcha" maxlength="4" class="form-control" />
+	   <br/> 
+	   <img src="/code/captcha-image" id="kaptchaImage"  style="margin-bottom: -3px"/>       
+	   <a href="#" onclick="changeCode()">看不清?换一张</a>  
+	</div>
 </body>
 </html>

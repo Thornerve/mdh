@@ -10,7 +10,6 @@
  */
 package com.thor.mdh.web.controller.account;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,21 +18,19 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thor.mdh.api.bean.SecretSecurityBean;
-import com.thor.mdh.api.bean.User;
+import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.service.account.IFindPassWordService;
 import com.thor.mdh.api.service.account.IUpdatePassWordService;
+import com.thor.mdh.web.controller.vo.UserVO;
 import com.thor.mdh.web.util.RandomValidateCode;
 
 /**
@@ -88,7 +85,7 @@ public class FindPassWordController {
      * @return
      */
     @RequestMapping("/passWordUserName")
-    public ModelAndView passWordUserName(@ModelAttribute("userBean") User user,
+    public ModelAndView passWordUserName(@ModelAttribute("userVO") UserVO user,
             							 @ModelAttribute("secretSecurity") SecretSecurityBean secretSecurity, 
             							 HttpServletRequest request) {
     	ModelAndView mv = new ModelAndView("");
@@ -112,7 +109,7 @@ public class FindPassWordController {
      * @since [产品/模块版本](可选)
      */
     @RequestMapping("/findPassWord")
-    public ModelAndView findPassWord(@ModelAttribute("userBean") User user,
+    public ModelAndView findPassWord(@ModelAttribute("userVO") UserVO user,
             						 @ModelAttribute("secretSecurity") SecretSecurityBean secretSecurity, 
             						 HttpServletRequest request, Model model) {
         // 验证是否是通过第一步进入
@@ -191,7 +188,7 @@ public class FindPassWordController {
      */
     @RequestMapping("/findPassWordMobile")
     public @ResponseBody
-    ModelAndView findPassWordMobile(@ModelAttribute("userBean") @Valid User userBean, BindingResult result,
+    ModelAndView findPassWordMobile(@ModelAttribute("userVO") @Valid UserBean userBean, BindingResult result,
             @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity, HttpServletRequest request,
             Model model) {
         // 验证是否是通过第二步进入
@@ -225,7 +222,7 @@ public class FindPassWordController {
      */
     @RequestMapping("/findPassWordEmail")
     public @ResponseBody
-    ModelAndView findPassWordEmail(@ModelAttribute("userBean") @Valid UserBean userBean, BindingResult result,
+    ModelAndView findPassWordEmail(@ModelAttribute("userVO") @Valid UserBean userBean, BindingResult result,
             @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity, HttpServletRequest request,
             Model model) {
         // 验证是否是通过第二步进入
@@ -258,7 +255,7 @@ public class FindPassWordController {
      */
     @RequestMapping("/findPassWordUpdate")
     public @ResponseBody
-    ModelAndView findPassWordUpdate(@ModelAttribute("userBean") @Valid UserBean userBean, BindingResult result,
+    ModelAndView findPassWordUpdate(@ModelAttribute("userVO") @Valid UserBean userBean, BindingResult result,
             @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity, Model model, HttpServletRequest request) {
         // 验证是否是通过第三步进入
         HttpSession session = request.getSession();
@@ -342,7 +339,7 @@ public class FindPassWordController {
      */
     @RequestMapping("/findPassWordSecretSecurity")
     public @ResponseBody
-    ModelAndView findPassWordSecretSecurity(@ModelAttribute("userBean") @Valid UserBean userBean, @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity,
+    ModelAndView findPassWordSecretSecurity(@ModelAttribute("userVO") @Valid UserBean userBean, @ModelAttribute("secretSecurity") @Valid SecretSecurityBean secretSecurity,
             BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
         SecretSecurityBean ssb = new SecretSecurityBean();
         // 验证是否是通过第二步进入

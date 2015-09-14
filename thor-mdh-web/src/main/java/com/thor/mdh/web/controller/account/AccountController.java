@@ -20,11 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.ResultVO;
-import com.thor.mdh.api.bean.User;
+import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.service.IUserService;
 import com.thor.mdh.api.service.account.IAccountService;
+import com.thor.mdh.web.controller.vo.UserVO;
 import com.thor.mdh.web.util.RandomValidateCode;
 
+/**
+ * 用户登录注册
+ * @author morlin
+ *
+ */
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -60,8 +66,15 @@ public class AccountController {
 		return mv.addObject("backUrl", backUrl);
 	}
 	
+	/**
+	 * 登录
+	 * @param request
+	 * @param user
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/tologin")
-	public ModelAndView toLogin(HttpServletRequest request, @RequestParam User user, HttpServletResponse response) {
+	public ModelAndView toLogin(HttpServletRequest request, @RequestParam UserVO user, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView(LOGIN_VIEW);
 		/** 判断验证码是否正确 */
         String validCode = (String) request.getSession().getAttribute(RandomValidateCode.RANDOMCODEKEY);
@@ -125,7 +138,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("toregister")
-	public ResultVO toRegister(@RequestParam User user){
+	public ResultVO toRegister(@RequestParam UserBean user){
 		return new ResultVO();
 	}
 	
