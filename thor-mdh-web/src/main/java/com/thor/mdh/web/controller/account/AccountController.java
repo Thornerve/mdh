@@ -26,10 +26,10 @@ import com.thor.mdh.web.util.RandomValidateCode;
 
 @RestController
 @RequestMapping("/account")
-public class LoginController {
+public class AccountController {
 
 	/** 日志 */
-	private static Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static Logger logger = LoggerFactory.getLogger(AccountController.class);
 	
 	@Autowired
 	private IUserService userService;
