@@ -20,6 +20,7 @@ import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.service.IUserService;
 import com.thor.mdh.api.service.account.IAccountService;
+import com.thor.mdh.web.controller.vo.UserVO;
 import com.thor.mdh.web.util.RandomValidateCode;
 
 /**
@@ -71,7 +72,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/tologin")
-	public ModelAndView toLogin(HttpServletRequest request, @RequestParam UserBean user, HttpServletResponse response) {
+	public ModelAndView toLogin(HttpServletRequest request, @RequestParam UserVO user, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView(LOGIN_VIEW);
 		/** 判断验证码是否正确 */
         String validCode = (String) request.getSession().getAttribute(RandomValidateCode.RANDOMCODEKEY);

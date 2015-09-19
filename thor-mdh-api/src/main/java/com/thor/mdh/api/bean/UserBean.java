@@ -16,8 +16,6 @@ public class UserBean implements Serializable{
 	private Integer mobile;
 	/** 验证码 */
 	private String checkCode;
-	/** 回调url */
-	private String backurl;
 	/** 创建时间 */
 	private Date createTime;
 	/** 更新时间 */
@@ -57,13 +55,6 @@ public class UserBean implements Serializable{
 		this.password = password;
 	}
 
-	public String getBackurl() {
-		return backurl;
-	}
-
-	public void setBackurl(String backurl) {
-		this.backurl = backurl;
-	}
 	public Date getCreateTime() {
 		return createTime;
 	}

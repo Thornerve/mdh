@@ -181,6 +181,13 @@
 		   <version>0.0.1</version>
 		</dependency>
 		
+		<!-- mdh-service -->
+		<dependency>
+		   <groupId>com.thor.mdh.service</groupId>
+		   <artifactId>thor-mdh-service</artifactId>
+		   <version>0.0.1</version>
+		</dependency>
+		
 		<!-- mdh-dao -->
 		<dependency>
 		   <groupId>com.thor.mdh.dao</groupId>
