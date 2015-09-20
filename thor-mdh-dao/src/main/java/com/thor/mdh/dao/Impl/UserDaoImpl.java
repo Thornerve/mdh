@@ -1,6 +1,7 @@
 package com.thor.mdh.dao.Impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -49,6 +50,30 @@ public class UserDaoImpl implements IUserDao{
 	public Long deleteUserById(Long userId) {
 		int id = template.update("com.thor.mdh.UserMapper.deleteUserById", userId);
 		return (long) id;
+	}
+
+	@Override
+	public UserBean queryMobileExist(String mobile) {
+		UserBean user = template.selectOne("com.thor.mdh.UserMapper.queryMobileExist", mobile);
+		return user;
+	}
+
+	@Override
+	public UserBean queryEmailExist(String email) {
+		UserBean user = template.selectOne("com.thor.mdh.UserMapper.queryEmailExist", email);
+		return user;
+	}
+
+	@Override
+	public Long updateUserEmail(Map<String, Object> paramMap) {
+		int userId = template.update("com.thor.mdh.UserMapper.updateUserEmailById", paramMap);
+		return (long) userId;
+	}
+
+	@Override
+	public Long updateUserMobile(Map<String, Object> paramMap) {
+		int userId = template.update("com.thor.mdh.UserMapper.updateUserMobileById", paramMap);
+		return (long) userId;
 	}
 
 }

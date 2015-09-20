@@ -9,6 +9,7 @@
     	<id column="user_id" property="userId"/> 
     	<result property="user_name" column="userName"/> 
     	<result column="mobile" property="mobile" />
+    	<result column="email" property="email" />
         <result column="cover_img_url" property="coverImgUrl" />
         <result column="user_type" property="userType" />
         <result column="business_licence" property="businessLicence" />
@@ -19,7 +20,7 @@
 	<!-- 用户登录查询 -->
 	<select id="loginUser" parameterType="int" resultMap="userResultMap">
         select 
-        	user_id,user_name,mobile,cover_img_url,user_type,business_licence,identification,create_time 
+        	user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time 
         from 
         	t_user 
         where 
@@ -29,7 +30,7 @@
     <!-- 根据用户id查询 -->
     <select id="queryUserByID" parameterType="int" resultMap="userResultMap">
         select 
-        	user_id,user_name,mobile,cover_img_url,user_type,business_licence,identification,create_time 
+        	user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time 
         from 
         	t_user 
         where 
@@ -39,19 +40,39 @@
     <!-- 未认证用户查询 -->
     <select id="queryUnIdentificationUserList" parameterType="int" resultMap="userResultMap" resultType="map">
         select 
-        	user_id,user_name,mobile,cover_img_url,user_type,business_licence,identification,create_time 
+        	user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time 
         from 
         	t_user 
         where 
-        	identification = #{identification} and status = 2;
+        	identification = 1 and status = 1;
     </select>
+    
+    <!-- 查询手机号是否存在（一个手机号只能注册一个用户） -->
+ 	<select id="queryMobileExist" parameterType="int" resultMap="userResultMap">
+ 		select
+ 			user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time
+ 		from
+ 			t_user
+ 		where
+ 			mobile = #{mobile};
+ 	</select>
+ 	
+ 	<!-- 查询邮箱是否存在（一个邮箱只能注册一个用户） -->
+ 	<select id="queryEmailExist" parameterType="int" resultMap="userResultMap">
+ 		select
+ 			user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time
+ 		from
+ 			t_user
+ 		where
+ 			email = #{email};
+ 	</select>
     
     <!-- 创建用户 -->
     <insert id="insertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
     	insert into 
-    		t_user (username,password,mobile,user_type,business_licence,create_time,status) 
+    		t_user (user_name,password,mobile,email,user_type,business_licence,create_time,status) 
     	values 
-    		(#{userName},#{password},#{mobile},#{userType},#{businessLicence},#{createTime},#{status});
+    		(#{userName},#{password},#{mobile},#{email},#{userType},#{businessLicence},#{createTime},#{status});
     </insert>
     
     <!-- 更新用户认证信息 认证用户-->
@@ -60,6 +81,22 @@
     		t_user 
     	set 
     		identification = 2 where user_id = #{userId};
+    </update>
+    
+    <!-- 更新用户手机-->
+    <update id="updateUserMobileById" parameterType="hashmap" >
+    	update 
+    		t_user 
+    	set 
+    		mobile = #{mobile} where user_id = #{userId};
+    </update>
+    
+    <!-- 更新用户邮箱-->
+    <update id="updateUsereEmailById" parameterType="hashmap" >
+    	update 
+    		t_user 
+    	set 
+    		email = #{email} where user_id = #{userId};
     </update>
     
     <!-- 更新用户图像 -->

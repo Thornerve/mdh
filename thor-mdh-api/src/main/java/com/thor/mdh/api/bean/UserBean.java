@@ -13,7 +13,7 @@ public class UserBean implements Serializable{
 	/** 用户密码 */
 	private String password;
 	/** 用户手机 */
-	private Integer mobile;
+	private String mobile;
 	/** 用户图像 */
 	private Long coverImgUrl;
 	/** 用户类型(1:个人，2：企业)*/
@@ -37,11 +37,11 @@ public class UserBean implements Serializable{
 		this.userName = userName;
 	}
 
-	public Integer getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(Integer mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 

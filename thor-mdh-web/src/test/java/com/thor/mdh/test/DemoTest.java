@@ -1,5 +1,6 @@
 package com.thor.mdh.test;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -22,5 +23,19 @@ public class DemoTest extends JUnitBaseTest{
     	}else{
     		System.out.println("查不到数据");
     	}
+	}
+	
+	@Test
+	public void testInsert(){
+		UserBean user = new UserBean();
+		user.setUserName("test1");
+		user.setPassword("123456");
+		user.setMobile("18521599872");
+		user.setStatus(1);
+		user.setUserType(1);
+		user.setIdentification(1);
+		user.setCreateTime(new Date());
+		Long userId = dao.createUser(user);
+		System.out.println("userId:" + userId);
 	}
 }
