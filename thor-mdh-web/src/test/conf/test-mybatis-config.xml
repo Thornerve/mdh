@@ -8,7 +8,7 @@
         <typeAlias alias="User" type="com.thor.mdh.api.bean.UserBean"/> 
     </typeAliases> 
     
-     <environments default="development">
+    <environments default="development">
         <environment id="development">
         <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -19,4 +19,5 @@
             </dataSource>
         </environment>
     </environments>
+    
 </configuration>

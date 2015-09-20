@@ -16,16 +16,11 @@ public class DemoTest extends JUnitBaseTest{
 	
 	@Test
 	public void test(){
-    	List<UserBean> queryList = dao.queryList();
+    	List<UserBean> queryList = dao.queryUnIdentificationUserList();
     	if(null != queryList && queryList.size() > 0){
     		System.out.println(JSONObject.toJSONString(queryList));
     	}else{
     		System.out.println("查不到数据");
     	}
-	}
-	
-	@Test
-	public void test1(){
-		
 	}
 }

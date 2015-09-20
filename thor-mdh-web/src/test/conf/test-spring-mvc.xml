@@ -146,7 +146,6 @@
 		<!--全局变量部分 -->
 		<property name="freemarkerVariables">
 			<map>
-				<entry key="base" value=""/>
 			</map>
 		</property>
 		<property name="defaultEncoding" value="utf-8" />

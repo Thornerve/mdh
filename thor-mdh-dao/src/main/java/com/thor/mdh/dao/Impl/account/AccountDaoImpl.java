@@ -1,8 +1,9 @@
 package com.thor.mdh.dao.Impl.account;
 
-import org.apache.ibatis.session.SqlSessionFactory;
+import javax.annotation.Resource;
+
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.UserBean;
@@ -10,16 +11,16 @@ import com.thor.mdh.api.dao.IAccountDao;
 import com.thor.mdh.api.exception.TryNumLimitedException;
 import com.thor.mdh.api.exception.UserNotFoundException;
 
-@Component
-public class AccountDao extends SqlSessionTemplate implements IAccountDao{
+@Repository
+public class AccountDaoImpl implements IAccountDao{
 
-	public AccountDao(SqlSessionFactory sqlSessionFactory) {
-		super(sqlSessionFactory);
-	}
-
+	@Resource
+	private SqlSessionTemplate template;
+	
 	@Override
 	public LoginInfo userLogin(String userName, String password) throws UserNotFoundException, TryNumLimitedException {
 		
+		Object selectOne = template.selectOne("", "");
 		int i = 1;
 		if(1 == i){
 			/** 数据库查询是否存在该用户 */
