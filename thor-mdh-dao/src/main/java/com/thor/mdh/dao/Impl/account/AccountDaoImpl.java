@@ -31,29 +31,4 @@ public class AccountDaoImpl implements IAccountDao{
 		}
 		
 	}
-
-	@Override
-	public Boolean userInvalidate(Long userId) {
-		/** 讲数据状态置为2 */
-		return null;
-	}
-
-	@Override
-	public Long userRegister(UserBean userBean) {
-		/** 插入数据 */
-		return null;
-	}
-
-	@Override
-	public Boolean checkMobile(Integer mobile) {
-		
-		return null;
-	}
-
-	@Override
-	public Boolean checkEmail(String email) {
-		
-		return null;
-	}
-	
 }

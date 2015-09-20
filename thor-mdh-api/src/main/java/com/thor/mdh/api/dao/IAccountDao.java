@@ -17,32 +17,5 @@ public interface IAccountDao {
 	 */
 	public LoginInfo userLogin(String userName, String password) throws UserNotFoundException, TryNumLimitedException;
 
-	/**
-	 * 删除用户
-	 * @param userId
-	 * @return
-	 */
-	public Boolean userInvalidate(Long userId);
-
-	/**
-	 * 用户注册
-	 * @param userBean
-	 * @return userid
-	 */
-	public Long userRegister(UserBean userBean);
-
-	/**
-	 * 校验手机号是否存在
-	 * @param mobile
-	 * @return
-	 */
-	public Boolean checkMobile(Integer mobile);
-
-	/**
-	 * 校验邮箱是否存在
-	 * @param email
-	 * @return
-	 */
-	public Boolean checkEmail(String email);
 
 }
