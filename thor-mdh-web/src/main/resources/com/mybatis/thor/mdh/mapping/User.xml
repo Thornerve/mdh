@@ -3,8 +3,8 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.thor.mdh.UserMapper">
-    <select id="queryDeskByID" parameterType="int" resultType="User">
-        select * from `t_user` where id = #{id}
+    <select id="queryUserByID" parameterType="int" resultType="User">
+        select * from t_user where id = #{id}
     </select>
     
     <!-- 为了返回list 类型而定义的returnMap -->
@@ -12,9 +12,18 @@
         <id column="id" property="id" />
         <result column="user_name" property="userName" />
         <result column="mobile" property="mobile" />
+        <result column="cover_img_url" property="coverImgUrl" />
+        <result column="user_type" property="userType" />
+        <result column="business_licence" property="businessLicence" />
+        <result column="identification" property="identification" />
+        <result column="create_time" property="createTime" />
     </resultMap>
     
-    <select id="queryList" resultMap="queryListUser" resultType="map">
-        select * from t_user
+    <select id="queryList" parameterType="int" resultMap="queryListUser" resultType="map">
+        select * from t_user where identification = #{identification}
     </select>
+    
+    <insert id="insertUserType" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+    	insert into t_user (username,password,mobile,user_type,business_licence,create_time) values (#{userName},#{password},#{mobile},#{userType},#{businessLicence},#{createTime})
+    </insert>
 </mapper>

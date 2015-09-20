@@ -8,6 +8,9 @@ public class UserVO extends UserBean{
 
 	/** 回调url */
 	private String backurl;
+	
+	/** 验证码 */
+	private String checkCode;
 
 	public String getBackurl() {
 		return backurl;
@@ -15,5 +18,13 @@ public class UserVO extends UserBean{
 
 	public void setBackurl(String backurl) {
 		this.backurl = backurl;
+	}
+
+	public String getCheckCode() {
+		return checkCode;
+	}
+
+	public void setCheckCode(String checkCode) {
+		this.checkCode = checkCode;
 	}
 }

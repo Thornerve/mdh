@@ -9,13 +9,13 @@ public interface IAccountDao {
 
 	/**
 	 * 用户登录
-	 * @param aliasName
+	 * @param userName
 	 * @param password
 	 * @return
 	 * @throws UserNotFoundException
 	 * @throws TryNumLimitedException
 	 */
-	public LoginInfo userLogin(String aliasName, String password) throws UserNotFoundException, TryNumLimitedException;
+	public LoginInfo userLogin(String userName, String password) throws UserNotFoundException, TryNumLimitedException;
 
 	/**
 	 * 删除用户

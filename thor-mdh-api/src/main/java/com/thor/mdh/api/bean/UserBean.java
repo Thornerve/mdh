@@ -6,16 +6,22 @@ import java.util.Date;
 public class UserBean implements Serializable{
 
 	private static final long serialVersionUID = -293714187271317286L;
+	/** 用户id */
+	private Long userId;
 	/** 用户名 */
 	private String userName;
 	/** 用户密码 */
 	private String password;
-	/** 旧密码 */
-	private String oldPassword;
 	/** 用户手机 */
 	private Integer mobile;
-	/** 验证码 */
-	private String checkCode;
+	/** 用户图像 */
+	private Long coverImgUrl;
+	/** 用户类型(1:个人，2：企业)*/
+	private Integer userType;
+	/** 是否认证(1:认证，2：未认证)*/
+	private Integer identification;
+	/** 营业执照 */
+	private Long businessLicence;
 	/** 创建时间 */
 	private Date createTime;
 	/** 更新时间 */
@@ -37,14 +43,6 @@ public class UserBean implements Serializable{
 
 	public void setMobile(Integer mobile) {
 		this.mobile = mobile;
-	}
-
-	public String getCheckCode() {
-		return checkCode;
-	}
-
-	public void setCheckCode(String checkCode) {
-		this.checkCode = checkCode;
 	}
 
 	public String getPassword() {
@@ -79,12 +77,44 @@ public class UserBean implements Serializable{
 		this.status = status;
 	}
 
-	public String getOldPassword() {
-		return oldPassword;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getCoverImgUrl() {
+		return coverImgUrl;
+	}
+
+	public void setCoverImgUrl(Long coverImgUrl) {
+		this.coverImgUrl = coverImgUrl;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public Long getBusinessLicence() {
+		return businessLicence;
+	}
+
+	public void setBusinessLicence(Long businessLicence) {
+		this.businessLicence = businessLicence;
+	}
+
+	public Integer getIdentification() {
+		return identification;
+	}
+
+	public void setIdentification(Integer identification) {
+		this.identification = identification;
 	}
 
 }
