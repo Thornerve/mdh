@@ -28,4 +28,10 @@ public class AccountDaoImpl implements IAccountDao{
 		LoginInfo info = template.selectOne("", userId);
 		return info;
 	}
+
+	@Override
+	public Long insertLoginLog(LoginInfo info) {
+		int id = template.insert("", info);
+		return (long) id;
+	}
 }

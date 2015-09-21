@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.SessionUser;
 import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.dao.IAccountDao;
+import com.thor.mdh.api.enums.LoginStatus;
 import com.thor.mdh.api.exception.TryNumLimitedException;
 import com.thor.mdh.api.exception.UserNotFoundException;
 import com.thor.mdh.api.service.account.IAccountService;
@@ -36,9 +36,7 @@ public class AccountServiceImpl implements IAccountService{
 	/** 日志 */
 	private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	
-	public static final String USER_NOTFOUND_ERROR = "用户不存在";
-	public static final String LIMITED_FAILLOGIN_ERROR = "登陆失败次数超过限制";
-	public static final Integer LIMITED_FAILLOGIN_TIMES = 3;
+	public static final Integer LIMITED_FAILLOGIN_TIMES = 5;
 	
 	/**
 	 * 登陆
@@ -64,6 +62,8 @@ public class AccountServiceImpl implements IAccountService{
     	UserBean user = accountDao.userLogin(paramMap);
         if(null == user){
         	logger.error("用户名或密码错误");
+        	loginInfo.setRtnCode(LoginStatus.FAILUSERPW.getCode());
+        	loginInfo.setErrMsg(LoginStatus.FAILUSERPW.getMsg());
         	throw new UserNotFoundException();
         }else{
         	/** 判断登陆次数是否超过限制 */
@@ -71,32 +71,33 @@ public class AccountServiceImpl implements IAccountService{
         	if(null != info){
         		if(info.getTryNum() > LIMITED_FAILLOGIN_TIMES){
         			logger.error("登陆失败次数超过限制");
+        			loginInfo.setRtnCode(LoginStatus.TRYLIMIT.getCode());
+        			loginInfo.setErrMsg(LoginStatus.TRYLIMIT.getMsg());
         			throw new TryNumLimitedException();
         		}else{
         			/** 登陆成功 */
         			userId = user.getUserId();
-        			loginInfo.setRtnCode(100);
-        			loginInfo.setUserId(userId);
-        			loginInfo.setTryNum(info.getTryNum());
-        			loginInfo.setTokenValue(Base64.toBase64String(userId.toString().getBytes()));
+        			loginInfo.setRtnCode(LoginStatus.SUCCESS.getCode());
+        			loginInfo.setErrMsg(LoginStatus.SUCCESS.getMsg());
         			logger.error("登陆成功 userId：{}", userId);
         		}
         	}
         }
         
+        /** 登录记录表中记录登录信息 */
+        Long logId = accountDao.insertLoginLog(loginInfo);
+        logger.info("记录登录信息,logId:{}", logId);
+        
         if (!userId.equals(-1l)) { 
-            String token = loginInfo.getTokenValue();
-            logger.debug("加密的用户id："+token);
-            Cookie cookie = new Cookie(SessionUser.SSOCOOKIE, token);
+            Cookie cookie = new Cookie(SessionUser.SSOCOOKIE, String.valueOf(userId));
             cookie.setPath("/");
             if (autoLogin) {
-                // 自动登陆,30天有效
+                /** 自动登陆,30天有效 */
                 cookie.setMaxAge(SessionUser.AVAIL_TIME);
             } else {
-                // 不自动登陆,浏览器关闭cookie无效
+                /** 不自动登陆,浏览器关闭cookie无效 */
                 cookie.setMaxAge(-1);
             }
-            
             response.addCookie(cookie);
             HttpSession session = request.getSession();
             session.setAttribute(SessionUser.SESSION_USERID, String.valueOf(userId));

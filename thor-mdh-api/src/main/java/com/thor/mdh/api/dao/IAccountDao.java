@@ -20,5 +20,12 @@ public interface IAccountDao {
 	 * @return
 	 */
 	public LoginInfo queryLoginTimes(Long userId);
+	
+	/**
+	 * 记录登录信息
+	 * @param info
+	 * @return
+	 */
+	public Long insertLoginLog(LoginInfo info);
 
 }
