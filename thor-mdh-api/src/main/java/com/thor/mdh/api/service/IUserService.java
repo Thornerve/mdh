@@ -1,7 +1,6 @@
 package com.thor.mdh.api.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.thor.mdh.api.bean.UserBean;
 
@@ -32,14 +31,14 @@ public interface IUserService {
 	 * @param mobile
 	 * @return
 	 */
-	public UserBean queryMobileExist(String mobile);
+	public Boolean queryMobileExist(String mobile);
 	
 	/**
 	 * 查询邮箱是否存在
 	 * @param mobile
 	 * @return
 	 */
-	public UserBean queryEmailExist(String email);
+	public Boolean queryEmailExist(String email);
 	
 	/**
 	 * 更新用户邮箱

@@ -1,11 +1,14 @@
 package com.thor.mdh.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,7 @@ public class AccountServiceImpl implements IAccountService{
 	
 	public static final String USER_NOTFOUND_ERROR = "用户不存在";
 	public static final String LIMITED_FAILLOGIN_ERROR = "登陆失败次数超过限制";
+	public static final Integer LIMITED_FAILLOGIN_TIMES = 3;
 	
 	/**
 	 * 登陆
@@ -44,35 +48,43 @@ public class AccountServiceImpl implements IAccountService{
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws TryNumLimitedException 
+	 * @throws UserNotFoundException 
 	 */
 	@Override
-	public LoginInfo userLogin(String aliasName, String password, boolean autoLogin, HttpServletRequest request, HttpServletResponse response) {
+	public UserBean userLogin(String userName, String password, boolean autoLogin, HttpServletRequest request, HttpServletResponse response) throws TryNumLimitedException, UserNotFoundException {
 		LoginInfo loginInfo = new LoginInfo();
+		Long userId = -1l;
 		
-        long userId = 0L;
-        LoginInfo login = null;
-        try {
-        	login = accountDao.userLogin(aliasName, password);
-        } catch (UserNotFoundException e) {
-            loginInfo.setErrMsg(USER_NOTFOUND_ERROR);
-            loginInfo.setUserId(userId);
-            logger.error("用户存在：{}",e.getErrorMsg());
-        } catch (TryNumLimitedException e) {
-            loginInfo.setErrMsg(LIMITED_FAILLOGIN_ERROR);
-            loginInfo.setUserId(userId);
-            logger.error("登陆失败次数超过限制：{}",e.getErrorMsg());
-        }
-
-        if(null != login){
-        	userId = login.getUserId();
-            loginInfo.setRtnCode(login.getRtnCode());
-            loginInfo.setErrMsg(login.getErrMsg());
-            loginInfo.setUserId(userId);
-            loginInfo.setIsModify(login.getIsModify());
-            loginInfo.setTryNum(login.getTryNum());
+		/** 查询参数 */
+    	Map<String,Object> paramMap = new HashMap<String,Object>();
+    	paramMap.put("userName", userName);
+    	paramMap.put("password", password);
+    	/** 登陆查询 */
+    	UserBean user = accountDao.userLogin(paramMap);
+        if(null == user){
+        	logger.error("用户名或密码错误");
+        	throw new UserNotFoundException();
+        }else{
+        	/** 判断登陆次数是否超过限制 */
+        	LoginInfo info = accountDao.queryLoginTimes(user.getUserId());
+        	if(null != info){
+        		if(info.getTryNum() > LIMITED_FAILLOGIN_TIMES){
+        			logger.error("登陆失败次数超过限制");
+        			throw new TryNumLimitedException();
+        		}else{
+        			/** 登陆成功 */
+        			userId = user.getUserId();
+        			loginInfo.setRtnCode(100);
+        			loginInfo.setUserId(userId);
+        			loginInfo.setTryNum(info.getTryNum());
+        			loginInfo.setTokenValue(Base64.toBase64String(userId.toString().getBytes()));
+        			logger.error("登陆成功 userId：{}", userId);
+        		}
+        	}
         }
         
-        if (userId != 0) { 
+        if (!userId.equals(-1l)) { 
             String token = loginInfo.getTokenValue();
             logger.debug("加密的用户id："+token);
             Cookie cookie = new Cookie(SessionUser.SSOCOOKIE, token);
@@ -89,43 +101,6 @@ public class AccountServiceImpl implements IAccountService{
             HttpSession session = request.getSession();
             session.setAttribute(SessionUser.SESSION_USERID, String.valueOf(userId));
         }
-        return loginInfo;
+        return user;
     }
-
-	@Override
-	public boolean userInvalidate(Long userId) {
-		if(null == userId){
-			return false;
-		}else{
-			return accountDao.userInvalidate(userId);
-		}
-	}
-
-	@Override
-	public Long userRegister(UserBean userBean) {
-		if(null == userBean){
-			return -1l;
-		}else{
-			return accountDao.userRegister(userBean);
-		}
-	}
-
-	@Override
-	public Boolean checkMobile(Integer mobile) {
-		if(null == mobile){
-			return false;
-		}else{
-			return accountDao.checkMobile(mobile);
-		}
-	}
-
-	@Override
-	public Boolean checkEmail(String email) {
-		if(StringUtils.isBlank(email)){
-			return false;
-		}else{
-			return accountDao.checkEmail(email);
-		}
-	}
-	
 }

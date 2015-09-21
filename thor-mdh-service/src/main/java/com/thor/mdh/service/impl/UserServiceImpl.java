@@ -60,19 +60,19 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public UserBean queryMobileExist(String mobile) {
+	public Boolean queryMobileExist(String mobile) {
 		logger.info("call queryMobileExist, param mobile:{}", mobile);
 		UserBean user = userDao.queryMobileExist(mobile);
 		logger.info("call queryMobileExist, result user:{}", JSONObject.toJSONString(user));
-		return user;
+		return null != user;
 	}
 
 	@Override
-	public UserBean queryEmailExist(String email) {
+	public Boolean queryEmailExist(String email) {
 		logger.info("call queryEmailExist, param email:{}", email);
 		UserBean user = userDao.queryEmailExist(email);
 		logger.info("call queryEmailExist, result user:{}", JSONObject.toJSONString(user));
-		return user;
+		return null != user;
 	}
 
 	@Override

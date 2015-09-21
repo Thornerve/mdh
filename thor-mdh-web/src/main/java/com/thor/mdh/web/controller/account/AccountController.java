@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.UserBean;
+import com.thor.mdh.api.exception.TryNumLimitedException;
+import com.thor.mdh.api.exception.UserNotFoundException;
 import com.thor.mdh.api.service.IUserService;
 import com.thor.mdh.api.service.account.IAccountService;
 import com.thor.mdh.web.controller.vo.UserVO;
@@ -45,11 +46,6 @@ public class AccountController {
 	private static final String LOGIN_VIEW = "/index/login.ftl";
 	private static final String REGISTER_VIEW = "/index/register.ftl";
 	
-    /** 密码次数超过限制 返回代码 */
-    private final static int loginRtnCodeError = 101;
-    /** 登陆次数超过限制 返回代码 */
-    private final static int loginRtnCodeLimit = 102;
-    
 	/**
 	 * 跳转到登录界面
 	 * @return
@@ -83,14 +79,15 @@ public class AccountController {
         }
         
         /** 调用接口 验证用户登陆 */
-        LoginInfo loginInfo = accountService.userLogin(user.getUserName(), user.getPassword(), true, request, response);
+		try {
+			UserBean userBean = accountService.userLogin(user.getUserName(), user.getPassword(), true, request, response);
+			mv.addObject("userBean", userBean);
+		} catch (UserNotFoundException e1) {
+			return new ModelAndView(LOGIN_VIEW).addObject("message", "您输入的用户名或密码不正确！");
+		} catch (TryNumLimitedException e1) {
+			return new ModelAndView(LOGIN_VIEW).addObject("message", "该账户登录出错次数已达上限，请24小时后重试！");
+		}
 
-        if (loginInfo.getRtnCode() == loginRtnCodeError) {
-            return new ModelAndView(LOGIN_VIEW).addObject("message", "您输入的用户名或密码不正确！");
-        } else if (loginInfo.getRtnCode() == loginRtnCodeLimit) {
-            return new ModelAndView(LOGIN_VIEW).addObject("message", "该账户登录出错次数已达上限，请24小时后重试！");
-        }
-        
         /** 用户回调用url */
         if (null == user.getBackurl() || "".equals(user.getBackurl())) {
             return new ModelAndView("redirect:/index.htm");
@@ -138,7 +135,7 @@ public class AccountController {
 	@RequestMapping("toregister")
 	public Boolean toRegister(@RequestParam UserBean userBean){
 		userBean.setCreateTime(new Date());
-		Long userId = accountService.userRegister(userBean);
+		Long userId = userService.createUser(userBean);
 		return userId > 0;
 	}
 	
@@ -148,8 +145,8 @@ public class AccountController {
      * @return
      */
     @RequestMapping("/checkMobile")
-    public Boolean checkMobile(@RequestParam(value = "mobile" , required = true)Integer mobile) {
-    	return accountService.checkMobile(mobile);
+    public Boolean checkMobile(@RequestParam(value = "mobile" , required = true)String mobile) {
+    	return userService.queryMobileExist(mobile);
     }
     
     /**
@@ -159,7 +156,7 @@ public class AccountController {
      */
     @RequestMapping("/checkEmail")
     public Boolean checkEmail(@RequestParam(value = "email" , required = true) String email) {
-    	return accountService.checkEmail(email);
+    	return userService.queryEmailExist(email);
     }
     
     

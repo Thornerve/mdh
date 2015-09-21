@@ -18,13 +18,23 @@
     </resultMap> 
 	
 	<!-- 用户登录查询 -->
-	<select id="loginUser" parameterType="int" resultMap="userResultMap">
+	<select id="loginUser" parameterType="hashmap" resultMap="userResultMap">
         select 
         	user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time 
         from 
         	t_user 
         where 
         	user_name = #{userName} and password = #{password} and status = 1;
+    </select>
+    
+    <!-- 用户登录失败次数查询 -->
+	<select id="loginUserTimes" parameterType="int" resultMap="userResultMap">
+        select 
+        	user_id,login_times 
+        from 
+        	t_user_login_log 
+        where 
+        	user_id = #{userId};
     </select>
 
     <!-- 根据用户id查询 -->
