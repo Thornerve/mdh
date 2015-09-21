@@ -11,8 +11,8 @@ public class ResultVO implements Serializable{
 
 	private static final long serialVersionUID = -7734562850041613427L;
 	
-	private String returnStatus;
-	private String returnMsg;
+	private String returnStatus;//返回状态值
+	private String returnMsg;//返回信息
 	
 	public String getReturnStatus() {
 		return returnStatus;

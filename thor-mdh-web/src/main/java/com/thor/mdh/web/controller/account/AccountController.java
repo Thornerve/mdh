@@ -159,5 +159,4 @@ public class AccountController {
     	return userService.queryEmailExist(email);
     }
     
-    
 }

@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.dao.IUserDao;
 import com.thor.mdh.api.service.IUserService;
+import com.thor.mdh.api.util.MD5Util;
 
 /**
  * 用户服务
@@ -42,6 +43,7 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public Long createUser(UserBean user) {
 		logger.info("call createUser, param user:{}", JSONObject.toJSONString(user));
+		user.setPassword(MD5Util.encodeByMD5(user.getPassword()));
 		Long userId = userDao.createUser(user);
 		logger.info("call createUser, result userId:{}", userId);
 		return userId;

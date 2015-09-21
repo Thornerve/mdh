@@ -14,7 +14,7 @@ public class Pagination implements Serializable{
 	private int pageNo;          //当前页码  
 	private int pageSize;        //每页行数  
 	private int totalCount;      //总记录数  
-	private int totalPage;
+	private int totalPage;		//总页数
 	
 	public int getPageNo() {
 		return pageNo;

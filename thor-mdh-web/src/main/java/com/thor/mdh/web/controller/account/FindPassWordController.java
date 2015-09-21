@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thor.mdh.api.service.account.IFindPassWordService;
 
 /**
- * 找回密码
+ * 找回密码  手机or邮箱
  * @author morlin
  *
  */
@@ -41,6 +41,7 @@ public class FindPassWordController {
     /**
      * 进入验证用户页
      */
+    @RequestMapping("/findPWView")
     public ModelAndView toFindPassWordView(){
     	ModelAndView mv = new ModelAndView(FIND_PASSWORD_VIEW);
     	
@@ -50,7 +51,6 @@ public class FindPassWordController {
     /**
      * 通过手机找回密码
      */
-    
 
     /**
      * 通过邮箱找回密码

@@ -5,6 +5,11 @@ import java.util.Map;
 import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.UserBean;
 
+/**
+ * 用户账户持久层
+ * @author morlin
+ *
+ */
 public interface IAccountDao {
 
 	/**
@@ -27,5 +32,26 @@ public interface IAccountDao {
 	 * @return
 	 */
 	public Long insertLoginLog(LoginInfo info);
+	
+	/**
+	 * 根据用户id查找邮箱
+	 * @param userId
+	 * @return
+	 */
+	public String queryEmailById(Long userId);
+	
+	/**
+	 * 根据用户id查找手机
+	 * @param userId
+	 * @return
+	 */
+	public String queryMobileById(Long userId);
+	
+	/**
+	 * 更新用户密码
+	 * @param password
+	 * @return
+	 */
+	public Long updateUserPassWord(String password, Long userId);
 
 }

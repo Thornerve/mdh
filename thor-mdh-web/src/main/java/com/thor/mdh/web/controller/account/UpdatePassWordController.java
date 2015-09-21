@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thor.mdh.api.bean.UserBean;
-import com.thor.mdh.api.service.account.IUpdatePassWordService;
+import com.thor.mdh.api.service.account.IPassWordService;
 
 /**
  * 修改密码
@@ -26,7 +26,7 @@ public class UpdatePassWordController {
 
     /** 修改密码服务 */
     @Autowired
-    IUpdatePassWordService updatePassWordService;
+    IPassWordService updatePassWordService;
 
     /** view */
     private static final String UPDATE_PASSWORD_VIEW = "/account/updatePassWord.ftl";

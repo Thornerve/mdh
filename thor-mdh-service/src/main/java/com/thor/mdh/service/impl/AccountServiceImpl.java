@@ -21,6 +21,7 @@ import com.thor.mdh.api.enums.LoginStatus;
 import com.thor.mdh.api.exception.TryNumLimitedException;
 import com.thor.mdh.api.exception.UserNotFoundException;
 import com.thor.mdh.api.service.account.IAccountService;
+import com.thor.mdh.api.util.MD5Util;
 
 /**
  * 账户服务
@@ -57,7 +58,7 @@ public class AccountServiceImpl implements IAccountService{
 		/** 查询参数 */
     	Map<String,Object> paramMap = new HashMap<String,Object>();
     	paramMap.put("userName", userName);
-    	paramMap.put("password", password);
+    	paramMap.put("password", MD5Util.encodeByMD5(password));
     	/** 登陆查询 */
     	UserBean user = accountDao.userLogin(paramMap);
         if(null == user){
