@@ -34,4 +34,22 @@ public class AccountDaoImpl implements IAccountDao{
 		int id = template.insert("", info);
 		return (long) id;
 	}
+
+	@Override
+	public String queryEmailById(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String queryMobileById(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long updateUserPassWord(String password, Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

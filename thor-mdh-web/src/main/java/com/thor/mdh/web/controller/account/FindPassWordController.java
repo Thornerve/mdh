@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.thor.mdh.api.service.account.IFindPassWordService;
+import com.thor.mdh.api.service.account.IPassWordService;
 
 /**
  * 找回密码  手机or邮箱
@@ -33,7 +33,7 @@ public class FindPassWordController {
 	
     /** 找回密码服务 */
     @Autowired
-    private IFindPassWordService findPassWordService;
+    private IPassWordService passWordService;
 
     /** view */
     private static final String FIND_PASSWORD_VIEW = "/account/findPassWord.ftl";

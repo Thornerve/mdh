@@ -26,7 +26,7 @@ public class UpdatePassWordController {
 
     /** 修改密码服务 */
     @Autowired
-    IPassWordService updatePassWordService;
+    IPassWordService passWordService;
 
     /** view */
     private static final String UPDATE_PASSWORD_VIEW = "/account/updatePassWord.ftl";
