@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,10 @@ public class AccountServiceImpl implements IAccountService{
 	 */
 	@Override
 	public UserBean userLogin(String userName, String password, boolean autoLogin, HttpServletRequest request, HttpServletResponse response) throws TryNumLimitedException, UserNotFoundException {
+		if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)){
+			return null;
+		}
+		
 		LoginInfo loginInfo = new LoginInfo();
 		Long userId = -1l;
 		

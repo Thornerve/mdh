@@ -8,9 +8,11 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +45,7 @@ public class AccountController {
 	private IAccountService accountService;
 	
 	/** view */
-	private static final String LOGIN_VIEW = "/index/login.ftl";
+	private static final String LOGIN_VIEW = "/pc/index/login1.ftl";
 	private static final String REGISTER_VIEW = "/index/register.ftl";
 	
 	/**
@@ -68,19 +70,29 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/tologin")
-	public ModelAndView toLogin(HttpServletRequest request, @RequestParam UserVO user, HttpServletResponse response) {
+	public ModelAndView toLogin(HttpServletRequest request, @ModelAttribute UserVO user, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView(LOGIN_VIEW);
 		/** 判断验证码是否正确 */
-        String validCode = (String) request.getSession().getAttribute(RandomValidateCode.RANDOMCODEKEY);
-        request.getSession().removeAttribute(RandomValidateCode.RANDOMCODEKEY);
+//        String validCode = (String) request.getSession().getAttribute(RandomValidateCode.RANDOMCODEKEY);
+//        request.getSession().removeAttribute(RandomValidateCode.RANDOMCODEKEY);
 
-        if (!user.getCheckCode().equalsIgnoreCase(validCode)) {
-            return new ModelAndView(LOGIN_VIEW).addObject("message", "验证码输入有误！");
+//        if (!user.getCheckCode().equalsIgnoreCase(validCode)) {
+//            return new ModelAndView(LOGIN_VIEW).addObject("message", "验证码输入有误！");
+//        }
+        
+		/** 自动登录 */
+        String autoLogin = request.getParameter("autoLogin");
+        Boolean autoLoginFlag = false;
+        if("on".equals(autoLogin)){
+        	autoLoginFlag = true;
         }
         
         /** 调用接口 验证用户登陆 */
 		try {
-			UserBean userBean = accountService.userLogin(user.getUserName(), user.getPassword(), true, request, response);
+			UserBean userBean = accountService.userLogin(user.getUserName(), user.getPassword(), autoLoginFlag, request, response);
+			if(null == userBean){
+				return new ModelAndView("redirect:/account/login.htm");
+			}
 			mv.addObject("userBean", userBean);
 		} catch (UserNotFoundException e1) {
 			return new ModelAndView(LOGIN_VIEW).addObject("message", "您输入的用户名或密码不正确！");
@@ -90,7 +102,7 @@ public class AccountController {
 
         /** 用户回调用url */
         if (null == user.getBackurl() || "".equals(user.getBackurl())) {
-            return new ModelAndView("redirect:/index.htm");
+            return new ModelAndView("redirect:/mdh/index.htm");
         } else {
             try {
 				URLDecoder.decode(user.getBackurl(), "UTF-8");
