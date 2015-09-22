@@ -60,6 +60,7 @@
   	<mvc:resources mapping="/images/**" location="/resources/images/" />
   	<mvc:resources mapping="/css/**" location="/resources/css/" />
   	<mvc:resources mapping="/bower_components/**" location="/resources/bower_components/" />
+  	<mvc:resources mapping="/fonts/**" location="/resources/fonts/" />
    	
     <!-- 统一异常处理 -->
     <bean id="exceptionResolver"
