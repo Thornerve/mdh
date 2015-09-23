@@ -1,20 +1,22 @@
- document.getElementById('submitForm').onclick = function(){
-
-        var userName = $("#userName").val();
-		var password = $.trim($('#password').val().replace(/\n/g,"@@@@"));
+   /**
+    * 登陆校验
+    */
+  	$('#submitForm').on('click',function(){
+  		
+        var userName = $.trim($("#userName").val());
+		var password = $.trim($('#password').val());
 		
-        if(userName == ''){
+		console.log(userName + "----" + password)
+		
+        if(userName == '' || userName == null){
+        	$('#userName').attr('placeholder','请输入用户名');
             return false;
         }
         
-        if(password == ''){
+        if(password == '' || password == null){
+        	$('#password').attr('placeholder','请输入密码');
             return false;
         }
-
-        var $data = {
-            'feedbackType' : feedbackType,
-            'question'		: questionValue
-        };
-
 	    
-    }
+    });
+ 

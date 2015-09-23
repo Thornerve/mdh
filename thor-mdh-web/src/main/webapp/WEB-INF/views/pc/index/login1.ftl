@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>卖的欢后台管理系统</title>
+    <title>后台管理系统(毕业论文)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- The styles -->
@@ -36,7 +36,7 @@
     <div class="row">
 	    <div class="row">
 	        <div class="col-md-12 center login-header">
-	            <h2>卖的欢后台管理系统</h2>
+	            <h2>后台管理系统(毕业论文)</h2>
 	        </div>
 	    </div>
 	    <div class="row">
@@ -64,7 +64,7 @@
 	                    <div class="clearfix"></div>
 	
 	                    <p class="center col-md-5">
-	                        <button type="submit" class="btn btn-primary">登陆</button>
+	                        <button type="submit" id="submitForm" class="btn btn-primary">登陆</button>
 	                    </p>
 	                </fieldset>
 	            </form>
