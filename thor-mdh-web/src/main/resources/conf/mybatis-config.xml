@@ -6,6 +6,7 @@
 	<!-- 别名 -->
     <typeAliases> 
         <typeAlias alias="User" type="com.thor.mdh.api.bean.UserBean"/> 
+        <typeAlias alias="Account" type="com.thor.mdh.api.bean.LoginInfo"/> 
     </typeAliases> 
     
 </configuration>

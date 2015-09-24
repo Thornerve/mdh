@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thor.mdh.AccountMapper">
+	
+	<!-- user 映射 -->
+    <resultMap id="accountResultMap" type="Account"> 
+    	<id column="login_log_id" property="id"/> 
+    	<result column="rtn_code" property="rtnCode" />
+    	<result column="err_msg" property="errMsg" />
+        <result column="user_id" property="userId" />
+        <result column="try_num" property="tryNum" />
+        <result column="login_time" property="loginTime" />
+    </resultMap> 
+	
+    <!-- 用户登录失败次数查询 -->
+	<select id="loginUserTimes" parameterType="int" resultMap="accountResultMap">
+        select 
+        	user_id,login_times 
+        from 
+        	t_user_login_log 
+        where 
+        	user_id = #{userId};
+    </select>
+    
+    <!-- 记录登录信息 -->
+    <insert id="insertLoginLog">
+    	insert into 
+    		t_user_login_log (user_id,rtn_code,err_msg,try_num,login_time)
+    	values
+    		(#{userId},#{rtnCode},#{errMsg},#{tryNum},#{loginTime});
+    </insert>
+
+</mapper>

@@ -7,7 +7,7 @@
 	<!-- user 映射 -->
     <resultMap id="userResultMap" type="User"> 
     	<id column="user_id" property="userId"/> 
-    	<result property="user_name" column="userName"/> 
+    	<result column="user_name" property="userName" /> 
     	<result column="mobile" property="mobile" />
     	<result column="email" property="email" />
         <result column="cover_img_url" property="coverImgUrl" />
@@ -17,7 +17,7 @@
         <result column="create_time" property="createTime" />
     </resultMap> 
 	
-	<!-- 用户登录查询 -->
+	<!-- 用户登录 -->
 	<select id="loginUser" parameterType="hashmap" resultMap="userResultMap">
         select 
         	user_id,user_name,mobile,email,cover_img_url,user_type,business_licence,identification,create_time 
@@ -27,16 +27,6 @@
         	user_name = #{userName} and password = #{password} and status = 1;
     </select>
     
-    <!-- 用户登录失败次数查询 -->
-	<select id="loginUserTimes" parameterType="int" resultMap="userResultMap">
-        select 
-        	user_id,login_times 
-        from 
-        	t_user_login_log 
-        where 
-        	user_id = #{userId};
-    </select>
-
     <!-- 根据用户id查询 -->
     <select id="queryUserByID" parameterType="int" resultMap="userResultMap">
         select 
@@ -76,6 +66,26 @@
  		where
  			email = #{email};
  	</select>
+ 	
+ 	<!-- 根据用户id查询邮箱 -->
+ 	<select id="queryEmailByUserId" parameterType="int" resultType="String">
+ 		select
+ 			email
+ 		from
+ 			t_user
+ 		where
+ 			user_id = #{userId};
+ 	</select>
+ 	
+ 	<!-- 根据用户id查询手机 -->
+ 	<select id="queryMobileByUserId" parameterType="int" resultType="String">
+ 		select
+ 			mobile
+ 		from
+ 			t_user
+ 		where
+ 			user_id = #{userId};
+ 	</select>
     
     <!-- 创建用户 -->
     <insert id="insertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
@@ -102,11 +112,19 @@
     </update>
     
     <!-- 更新用户邮箱-->
-    <update id="updateUsereEmailById" parameterType="hashmap" >
+    <update id="updateUserEmailById" parameterType="hashmap" >
     	update 
     		t_user 
     	set 
     		email = #{email} where user_id = #{userId};
+    </update>
+    
+     <!-- 更新用户密码-->
+    <update id="updatePassWordById" parameterType="hashmap" >
+    	update 
+    		t_user 
+    	set 
+    		password = #{password} where user_id = #{userId};
     </update>
     
     <!-- 更新用户图像 -->
