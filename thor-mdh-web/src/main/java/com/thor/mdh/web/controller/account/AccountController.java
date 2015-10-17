@@ -44,7 +44,7 @@ public class AccountController {
 	private IAccountService accountService;
 	
 	/** view */
-	private static final String LOGIN_VIEW = "/pc/index/login1.ftl";
+	private static final String LOGIN_VIEW = "/pc/index/login.ftl";
 	private static final String REGISTER_VIEW = "/index/register.ftl";
 	
 	/**
