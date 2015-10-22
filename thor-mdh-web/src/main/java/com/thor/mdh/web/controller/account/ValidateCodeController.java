@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thor.mdh.web.util.RandomValidateCode;
 
+/**
+ * 验证码
+ * @author liu_yong
+ *
+ */
 @RestController
 @RequestMapping("/account")
 public class ValidateCodeController {

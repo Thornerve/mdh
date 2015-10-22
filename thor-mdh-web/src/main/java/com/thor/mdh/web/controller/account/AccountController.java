@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.thor.mdh.api.bean.UserBean;
 import com.thor.mdh.api.exception.TryNumLimitedException;
@@ -53,6 +55,7 @@ public class AccountController {
 	 */
 	@RequestMapping("/login")
 	public ModelAndView toLoginView(HttpServletRequest request){
+		request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, new Locale("zh", "CN"));
 		ModelAndView mv = new ModelAndView(LOGIN_VIEW);
 	 	String backUrl = request.getParameter("backUrl");
         if(backUrl != null){

@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping
+@RequestMapping("/index")
 public class IndexController {
 	
 	/** 日志 */
 	private static Logger logger = LoggerFactory.getLogger(IndexController.class);
 
 	/** view */
-	private static final String INDEX_VIEW = "/index/index.ftl";
+	private static final String INDEX_VIEW = "/pc/index/index.ftl";
 	
 	@RequestMapping("/index")
 	public ModelAndView toIndex(){
