@@ -32,4 +32,9 @@ public interface IPassWordService {
 	 * @return true:修改成功  false:修改失败
 	 */
 	public Boolean updatePassWordById(String password, Long userId);
+
+	public Boolean checkMobile(String mobile, Long userId);
+
+	public Boolean checkEmail(String mobile, Long userId);
+
 }

@@ -12,7 +12,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:test-spring-mvc.xml","classpath:test-spring-mybatis.xml"})
+@ContextConfiguration(locations= {"classpath:test-spring-mvc.xml",
+		"classpath:test-spring-mybatis.xml"})
 public class JUnitBaseTest {
 
 	@Autowired

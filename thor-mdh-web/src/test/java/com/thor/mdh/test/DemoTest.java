@@ -16,16 +16,6 @@ public class DemoTest extends JUnitBaseTest{
 	private IUserDao dao;
 	
 	@Test
-	public void test(){
-    	List<UserBean> queryList = dao.queryUnIdentificationUserList();
-    	if(null != queryList && queryList.size() > 0){
-    		System.out.println(JSONObject.toJSONString(queryList));
-    	}else{
-    		System.out.println("查不到数据");
-    	}
-	}
-	
-	@Test
 	public void testInsert(){
 		UserBean user = new UserBean();
 		user.setUserName("test1");
@@ -38,4 +28,16 @@ public class DemoTest extends JUnitBaseTest{
 		Long userId = dao.createUser(user);
 		System.out.println("userId:" + userId);
 	}
+	
+	@Test
+	public void test(){
+		//查询未认证用户
+    	List<UserBean> queryList = dao.queryUnIdentificationUserList();
+    	if(null != queryList && queryList.size() > 0){
+    		System.out.println(JSONObject.toJSONString(queryList));
+    	}else{
+    		System.out.println("查不到数据");
+    	}
+	}
+	
 }
