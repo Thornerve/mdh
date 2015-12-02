@@ -13,6 +13,12 @@
     <version>0.0.1</version>
     
     <dependencies>
+    	<!-- 加密 -->
+		<dependency>
+		  <groupId>org.bouncycastle</groupId>
+		  <artifactId>bcprov-jdk15on</artifactId>
+		</dependency>
+    
 		<!-- spring核心包 -->
 		<dependency>
 			<groupId>org.springframework</groupId>

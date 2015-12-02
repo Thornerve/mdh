@@ -2,8 +2,8 @@ package com.thor.mdh.api.dao;
 
 import java.util.Map;
 
-import com.thor.mdh.api.bean.LoginInfo;
 import com.thor.mdh.api.bean.UserBean;
+import com.thor.mdh.api.vo.LoginInfo;
 
 /**
  * 用户账户持久层

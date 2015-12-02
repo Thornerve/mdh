@@ -1,4 +1,4 @@
-package com.thor.mdh.api.bean;
+package com.thor.mdh.api.vo;
 
 import java.io.Serializable;
 

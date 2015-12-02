@@ -1,5 +1,10 @@
 package com.thor.mdh.api.enums;
 
+/**
+ * 登录状态枚举
+ * @author morlin
+ *
+ */
 public enum LoginStatus {
 
 	/** 登录成功 */
