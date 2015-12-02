@@ -3,7 +3,7 @@ package com.thor.mdh.api.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class LoginInfo implements Serializable{
+public class LoginVO implements Serializable{
 
 	private static final long serialVersionUID = 6907602066738224986L;
 
